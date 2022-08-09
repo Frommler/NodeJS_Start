@@ -1,22 +1,37 @@
-const users = [{name:"Maxq", age:"42"},{name:"Mayx", age:"50"},{name:"Madx", age:"20"},{name:"Max", age:"20"},{name:"John", age:"32"}];
+const users = require("./models/UserModel");
+const usercontroller = require("./controllers/UserController");
 
 module.exports = function(app){
-  app.get("/", (req, res) => {
-    res.send(200, "Hello from Express!");
-  });
-  app.post("/", (req, res) => {
-    res.send(200, "Hello from Express!");
-  });
+  //app.get("/", usercontroller.ListOfUsers);
+  app.route("/").get(usercontroller.ListOfUsers);
 
   app.get("/count-of-users", (req, res) => {
     res.send(200, users.length);
   });
 
-  app.get("/averege-age", (req, res) => {
-    let sum = 0;
+  //app.get("/averege-age", usercontroller.avgage);
+
+
+
+  app.get("/oldest-user", (req, res) => {
+    let max = 0;
     users.forEach((obj) => {
-      sum += Number(obj.age);
+      if (obj.age > max){
+        max = obj.age;
+      }
     });
-    res.send(200, (sum / users.length).toFixed(0));
-  })
+    res.send(200, "Oldedst user " + max);
+  });
+
+
+
+  app.get("/youngest-user", (req, res) => {
+    let min = 999;
+    users.forEach((obj) => {
+      if (obj.age < min){
+        min = obj.age;
+      }
+    });
+    res.send(200, "Youngest user " + min);
+  });
 };
