@@ -12,10 +12,46 @@ res.send(200, (sum / users.length).toFixed(0));
 };*/
 
 exports.ListOfUsers = function(req, res) {
-  user.find({},function(error, users){
-    console.log(error);
-    console.log(users);
-    res.json(users);
+  user.find({
+      name:{$regex:/^max/i}
+    },function(error, users){
+      console.log(error);
+      console.log(users);
+      res.json(users);
+  })
+  .sort({"age":-1})
+  .limit(2);
+};
+
+exports.countOfUsers = function(req, res) {
+  user.countDocuments({},function(error, count){
+    if(error) res.json(error)
+    res.json(count);
   });
+};
+
+exports.usersByAge = function(req, res) {
+  user.find({
+    age:{$gt:req.params.agefrom, $lt:req.params.ageto}
+  }, function (error, users){
+    res.json(200, users);
+  });
+};
+
+exports.usersByName = function(req, res) {
+  user.find({
+    name:{$regex:req.params.username}
+  }, function (error, users){
+    res.json(200, users);
+  })
+  .sort("name");
+};
+
+exports.youngestUser = function(req, res) {
+  user.find({}, function (error, users){
+    res.json(200, users)
+  })
+  .sort("age")
+  .limit(1)
 };
 

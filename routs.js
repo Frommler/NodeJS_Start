@@ -5,9 +5,7 @@ module.exports = function(app){
   //app.get("/", usercontroller.ListOfUsers);
   app.route("/").get(usercontroller.ListOfUsers);
 
-  app.get("/count-of-users", (req, res) => {
-    res.send(200, users.length);
-  });
+  app.route("/count-of-users").get(usercontroller.countOfUsers);
 
   //app.get("/averege-age", usercontroller.avgage);
 
@@ -34,4 +32,10 @@ module.exports = function(app){
     });
     res.send(200, "Youngest user " + min);
   });
+
+  app.route("/users-by-age/:agefrom/:ageto").get(usercontroller.usersByAge);
+
+  app.route("/users-by-name/:username").get(usercontroller.usersByName);
+
+  app.route("/youngestuser").get(usercontroller.youngestUser);
 };
