@@ -13,14 +13,14 @@ res.send(200, (sum / users.length).toFixed(0));
 
 exports.ListOfUsers = function(req, res) {
   user.find({
-      name:{$regex:/^max/i}
+      //name:{$regex:/^max/i}
     },function(error, users){
       console.log(error);
       console.log(users);
       res.json(users);
   })
-  .sort({"age":-1})
-  .limit(2);
+  .sort({"height":-1})
+  //.limit(2);
 };
 
 exports.countOfUsers = function(req, res) {
@@ -54,4 +54,47 @@ exports.youngestUser = function(req, res) {
   .sort("age")
   .limit(1)
 };
+
+exports.usersByHeight = function(req, res) {
+  user.find({
+    height:{$regex:req.params.h}
+  }, function(err, users){
+    res.json(200, users);
+  });
+};
+
+exports.createUser = function(req, res) {
+  var newUser = new user(req.body);// в body приходить відповідь POST
+  newUser.save(function(err, user){
+    res.json(user);
+  });
+};
+
+exports.deleteUser = function(req, res) {
+  user.remove({
+    _id:req.params.userId
+  }, function(err, user){
+    res.json(
+      user
+      //message:"Delete user is succes"
+    )
+  })
+};
+
+exports.updateUser = function(req, res) {
+  user.findOneAndUpdate({_id:req.params.userId}, req.body, {new:true},
+    function(err, user){
+      res.json(user);
+  });
+};
+
+exports.updateUserHeight = function(req, res) {
+  user.updateMany({height:"182"}, {height:"192"},
+  function(err, user) {
+    res.json(
+      {message:"User Updatet succes"}
+    );
+  });
+};
+
 

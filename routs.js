@@ -38,4 +38,14 @@ module.exports = function(app){
   app.route("/users-by-name/:username").get(usercontroller.usersByName);
 
   app.route("/youngestuser").get(usercontroller.youngestUser);
+
+  app.route("/users-by-height/:h").get(usercontroller.usersByHeight);
+
+  app.route("/create-user").post(usercontroller.createUser);
+
+  app.route("/delete-user/:userId").delete(usercontroller.deleteUser);
+
+  app.route("/update-user/:userId").put(usercontroller.updateUser);
+
+  app.route("/update-user-height").put(usercontroller.updateUserHeight);
 };
