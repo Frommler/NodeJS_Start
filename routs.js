@@ -65,7 +65,7 @@ module.exports = function(app){
 
   app.route('/get-product-by/:name').get(productsController.getProductByName);
 
-  app.route('/get-product-by/:category').get(productsController.getProductByCategory);
+  app.route('/get-products-by/:category').get(productsController.getProductByCategory);
 
   app.route('/add-category-for-all').put(productsController.addCategoryForAll);
 };
