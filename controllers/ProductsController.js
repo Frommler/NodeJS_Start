@@ -61,3 +61,13 @@ exports.addCategoryForAll = function (req, res) {
     }
   );
 };
+
+exports.getProductByCategory = function (req, res) {
+  products.find(
+    { category: req.params.category }, //пошук по radiobutton,тому без $regex
+    function (err, products) {
+      if (err) res.json(err);
+      res.json(products);
+    }
+  );
+};
