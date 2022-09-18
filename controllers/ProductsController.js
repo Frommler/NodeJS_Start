@@ -52,3 +52,12 @@ exports.getProductByName = function (req, res) {
     }
   );
 };
+
+exports.addCategoryForAll = function (req, res) {
+  products.updateMany(
+    { $set: { category: "default" } },
+    function (err, products) {
+      res.json(products);
+    }
+  );
+};

@@ -53,6 +53,8 @@ module.exports = function(app){
 
   app.route("/users-by-id/:userId").get(usercontroller.getUserById);
 
+  
+
   app.route('/create-product').post(productsController.createProduct);
 
   app.route('/products-list').get(productsController.getProductsList);
@@ -62,4 +64,6 @@ module.exports = function(app){
   app.route('/product-by-price/:lowprice/:highprice').get(productsController.getProductsByPrice);
 
   app.route('/get-product-by/:name').get(productsController.getProductByName);
+
+  app.route('/add-category-for-all').put(productsController.addCategoryForAll);
 };

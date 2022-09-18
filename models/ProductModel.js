@@ -4,6 +4,7 @@ var productSchema = mongoose.Schema({  //створили схему модел�
   name: String,
   price: Number,
   image: String,
+  category: String,
 }, {
   collection: 'products'
 });
