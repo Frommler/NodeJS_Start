@@ -1,0 +1,45 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "users api",
+    "description": "basic information about users"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "127.0.0.1"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "get list of users from DB",
+        "responses": {
+          "200": {
+            "description": "succes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "Alex"
+                      },
+                      "age": {
+                        "type": "integer",
+                        "example": 10
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

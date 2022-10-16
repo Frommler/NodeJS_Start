@@ -11,6 +11,28 @@ const mongoose = require("mongoose"),
 res.send(200, (sum / users.length).toFixed(0));
 };*/
 
+/**
+ *
+ * @swagger
+ * /:
+ *   get:
+ *     description: get list of users from DB
+ *     responses:
+ *       '200':
+ *         description: succes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 properties:
+ *                   name:
+ *                     type: string
+ *                     example: Alex
+ *                   age:
+ *                     type: integer
+ *                     example: 10
+ */
 exports.ListOfUsers = function (req, res) {
   user
     .find(
@@ -26,6 +48,26 @@ exports.ListOfUsers = function (req, res) {
     .sort({ height: -1 });
   //.limit(2);
 };
+
+/**
+ *
+ * @swagger
+ * /count-of-users:
+ *   get:
+ *     description: get count of users from DB
+ *     responses:
+ *       '200':
+ *         description: succes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: number
+ *               items:
+ *                 properties:
+ *                   count:
+ *                     type: integer
+ *                     example: 320
+ */
 
 exports.countOfUsers = function (req, res) {
   user.countDocuments({}, function (error, count) {
@@ -70,7 +112,7 @@ exports.youngestUser = function (req, res) {
 exports.usersByHeight = function (req, res) {
   user.find(
     {
-      height: { $regex: req.params.h },//$regex: регулярний вираз для пошуку
+      height: { $regex: req.params.h }, //$regex: регулярний вираз для пошуку
     },
     function (err, users) {
       res.json(200, users);
@@ -120,15 +162,13 @@ exports.getUserById = function (req, res) {
   console.log(req.params.userId);
   user.find(
     {
-      _id: req.params.userId  
+      _id: req.params.userId,
     },
     function (err, user) {
       if (err) {
-        res.send(err)
-      };
+        res.send(err);
+      }
       res.json(user);
     }
-)};
-
-
-
+  );
+};
